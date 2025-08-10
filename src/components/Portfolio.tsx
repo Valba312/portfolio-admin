@@ -18,7 +18,7 @@ export function Portfolio() {
             <a href="#skills" className="text-neutral-300 hover:text-white">Навыки</a>
             <a href="#contact" className="text-neutral-300 hover:text-white">Контакты</a>
           </nav>
-          <div className="flex items-center gap-2"><Link href="/admin"><Button variant="outline">Админ</Button></Link><a className="btn" href={content.profile.links.resume} target="_blank" rel="noreferrer">CV</a></div>
+          <div className="flex items-center gap-2"><a className="btn" href={content.profile.links.resume} target="_blank" rel="noreferrer">CV</a></div>
         </div>
       </header>
       <main id="main" className="container pb-16 pt-10">
