@@ -1,0 +1,211 @@
+
+import React from "react";
+import { Link } from "wouter";
+import { useAppStore } from "@/store";
+import { Badge, Button, Card, CardBody, CardHeader, Input, Separator } from "@/components/ui";
+import { Calendar, Code2, ExternalLink, MapPin, Rocket } from "lucide-react";
+
+export function Portfolio() {
+  const { content } = useAppStore();
+
+  return (
+    <div>
+      <header className="sticky top-0 z-50 w-full border-b border-neutral-800 bg-neutral-900/50 backdrop-blur">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Rocket className="h-5 w-5" />
+            <span className="text-sm font-semibold tracking-wide">{content.profile.name}</span>
+          </div>
+          <nav className="hidden gap-6 md:flex text-sm">
+            <a href="#projects" className="text-neutral-300 hover:text-white">Проекты</a>
+            <a href="#experience" className="text-neutral-300 hover:text-white">Опыт</a>
+            <a href="#skills" className="text-neutral-300 hover:text-white">Навыки</a>
+            <a href="#contact" className="text-neutral-300 hover:text-white">Контакты</a>
+          </nav>
+          <div className="flex items-center gap-2">
+            <Link href="/admin"><Button variant="outline">Админ</Button></Link>
+            <a className="btn" href={content.profile.links.resume} target="_blank" rel="noreferrer">CV</a>
+          </div>
+        </div>
+      </header>
+
+      <main id="main" className="container pb-16 pt-10">
+        {/* HERO */}
+        <section className="grid items-center gap-8 py-8 md:grid-cols-[1.1fr_.9fr] md:py-14">
+          <div>
+            <Badge className="mb-4">Открыт к предложениям</Badge>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">{content.profile.name}</h1>
+            <p className="mt-2 text-lg text-neutral-300">{content.profile.title}</p>
+            <p className="mt-4 max-w-prose text-base leading-relaxed text-neutral-300">{content.profile.summary}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a className="btn" href="#projects"><Code2 className="h-4 w-4" /> Смотреть проекты</a>
+              <a className="btn-outline" href="#contact">Связаться</a>
+            </div>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-neutral-300">
+              <span className="inline-flex items-center gap-1"><MapPin className="h-4 w-4" /> {content.profile.location}</span>
+              <span className="inline-flex items-center gap-1"><Calendar className="h-4 w-4" /> Доступен с июля 2025</span>
+            </div>
+          </div>
+
+          <div>
+            <Card>
+              <CardHeader>
+                <div className="text-lg font-semibold">{content.profile.name}</div>
+                <div className="text-sm text-neutral-300">{content.profile.title}</div>
+              </CardHeader>
+              <CardBody>
+                <div className="grid grid-cols-3 gap-3 text-center text-sm">
+                  <div className="rounded-2xl bg-neutral-800 p-4">
+                    <div className="text-2xl font-bold">5+</div>
+                    <div className="text-neutral-400">лет опыта</div>
+                  </div>
+                  <div className="rounded-2xl bg-neutral-800 p-4">
+                    <div className="text-2xl font-bold">20+</div>
+                    <div className="text-neutral-400">проектов</div>
+                  </div>
+                  <div className="rounded-2xl bg-neutral-800 p-4">
+                    <div className="text-2xl font-bold">3</div>
+                    <div className="text-neutral-400">кейса</div>
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
+        </section>
+
+        <Separator />
+
+        {/* PROJECTS */}
+        <section id="projects" className="section">
+          <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">Избранные проекты</h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {content.projects.map((p, idx) => (
+              <Card key={idx}>
+                <CardHeader>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-lg font-semibold leading-tight">{p.title}</h3>
+                      <p className="mt-1 text-sm text-neutral-300">{p.description}</p>
+                    </div>
+                    <div className="rounded-xl bg-neutral-800 p-3">
+                      <Code2 className="h-5 w-5" />
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardBody>
+                  <div className="flex flex-wrap gap-2">
+                    {p.tags.map((t, i) => (
+                      <span key={i} className="badge">{t}</span>
+                    ))}
+                  </div>
+                  <div className="mt-3">
+                    <a className="link inline-flex items-center gap-2" href={p.href} target="_blank" rel="noreferrer">Смотреть демо <ExternalLink className="h-4 w-4" /></a>
+                  </div>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <Separator />
+
+        {/* EXPERIENCE */}
+        <section id="experience" className="section">
+          <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">Опыт</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {content.experience.map((job, idx) => (
+              <Card key={idx}>
+                <CardHeader>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <div className="text-base font-semibold">{job.role}</div>
+                      <div className="text-sm text-neutral-300">{job.company}</div>
+                    </div>
+                    <div className="text-sm text-neutral-300">{job.period}</div>
+                  </div>
+                  <div className="mt-1 text-xs text-neutral-400">{job.location}</div>
+                </CardHeader>
+                <CardBody>
+                  <ul className="space-y-2 text-sm">
+                    {job.points.map((pt, i) => (
+                      <li key={i} className="relative pl-5">
+                        <span className="absolute left-0 top-2 block h-1.5 w-1.5 rounded-full bg-white" />
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <Separator />
+
+        {/* SKILLS */}
+        <section id="skills" className="section">
+          <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">Навыки</h2>
+          <div className="flex flex-wrap gap-2">
+            {content.skills.map((s, i) => (
+              <span key={i} className="badge">{s}</span>
+            ))}
+          </div>
+        </section>
+
+        <Separator />
+
+        {/* CONTACT */}
+        <section id="contact" className="section">
+          <h2 className="mb-6 text-2xl font-semibold sm:text-3xl">Связаться со мной</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <div className="text-base font-semibold">Написать сообщение</div>
+                <p className="text-sm text-neutral-300">
+                  Форма-демо — подключите обработчик/почту или используйте ссылки справа.
+                </p>
+              </CardHeader>
+              <CardBody>
+                <form onSubmit={(e) => { e.preventDefault(); alert("Спасибо! Сообщение отправлено (демо)."); }} className="space-y-3">
+                  <div>
+                    <label className="mb-1 block text-sm">Ваше имя</label>
+                    <Input placeholder="Иван Иванов" required />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm">Email</label>
+                    <Input type="email" placeholder="you@example.com" required />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm">Сообщение</label>
+                    <textarea className="textarea" rows={5} placeholder="Коротко опишите задачу" required></textarea>
+                  </div>
+                  <Button type="submit">Отправить</Button>
+                </form>
+              </CardBody>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="text-base font-semibold">Другие способы</div>
+                <p className="text-sm text-neutral-300">Быстрые ссылки на соцсети и контакты.</p>
+              </CardHeader>
+              <CardBody className="grid gap-3">
+                <a className="btn-outline justify-start" href={content.profile.links.email}>Email: {content.profile.links.email.replace("mailto:", "")}</a>
+                <a className="btn-outline justify-start" href={content.profile.links.phone}>Позвонить</a>
+                <a className="btn-outline justify-start" href={content.profile.links.github} target="_blank" rel="noreferrer">GitHub</a>
+                <a className="btn-outline justify-start" href={content.profile.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              </CardBody>
+            </Card>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-neutral-800 bg-neutral-900/60">
+        <div className="container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
+          <div className="text-sm text-neutral-300">© {new Date().getFullYear()} {content.profile.name}. Все права защищены.</div>
+          <div className="text-sm text-neutral-300">Сделано с ❤️ на React + Tailwind</div>
+        </div>
+      </footer>
+    </div>
+  );
+}

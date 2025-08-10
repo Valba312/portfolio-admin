@@ -1,0 +1,22 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b0b0f;
+  --fg: #e7e7ea;
+}
+
+html, body, #root { height: 100%; }
+body { @apply bg-gradient-to-b from-neutral-950 to-neutral-900 text-neutral-100; }
+.container { @apply mx-auto max-w-7xl px-4 sm:px-6; }
+.section { @apply scroll-mt-20; }
+.card { @apply rounded-2xl border border-neutral-800 bg-neutral-900/60 backdrop-blur; }
+.btn { @apply inline-flex items-center gap-2 rounded-xl border border-neutral-700 bg-neutral-800 px-4 py-2 text-sm font-medium hover:bg-neutral-700 active:translate-y-px transition; }
+.btn-outline { @apply inline-flex items-center gap-2 rounded-xl border border-neutral-700 bg-transparent px-4 py-2 text-sm font-medium hover:bg-neutral-800; }
+.badge { @apply inline-flex items-center rounded-full border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-xs; }
+.input { @apply w-full rounded-xl border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm outline-none ring-0 focus:border-neutral-400; }
+.textarea { @apply w-full rounded-xl border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm outline-none ring-0 focus:border-neutral-400; }
+.separator { @apply my-10 h-px bg-neutral-800; }
+.link { @apply text-neutral-300 hover:text-white underline decoration-neutral-700 underline-offset-4; }
