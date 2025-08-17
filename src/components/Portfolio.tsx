@@ -67,7 +67,7 @@ export function Portfolio() {
           <div className="flex items-center gap-2">
             <button
               className="btn-outline"
-              onClick={() => exportPortfolioToPdf("portfolio-content")}
+              onClick={() => exportPortfolioToPdf("portfolio-content")}Ы
             >
               Скачать PDF
             </button>
